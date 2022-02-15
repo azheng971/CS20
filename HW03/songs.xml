@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="file.css"?>
+
+<WEDDING-PAYLIST>
+    <SONG>
+        <TITLE>Exist For Love</TITLE>
+        <ARTIST>AURORA</ARTIST>
+        <GENRE>Art Pop</GENRE>
+        <GENRE>Norwegian Pop</GENRE>
+        <YEAR>2022</YEAR>
+    </SONG>
+    <SONG>
+        <TITLE>The Innocent</TITLE>
+        <ARTIST>AURORA</ARTIST>
+        <GENRE>Art Pop</GENRE>
+        <YEAR>2022</YEAR>
+    </SONG>
+    <SONG>
+        <TITLE>But it's Destiny</TITLE>
+        <ARTIST>10cm</ARTIST>
+        <GENRE>K-pop</GENRE>
+        <GENRE>Soundtrack</GENRE>
+        <YEAR>2019</YEAR>
+    </SONG>
+    <SONG>
+        <TITLE>A Thousand Years</TITLE>
+        <ARTIST>Christina Perri</ARTIST>
+        <GENRE>Pop</GENRE>
+        <YEAR>2011</YEAR>
+    </SONG>
+    <SONG>
+        <TITLE>Yumeji's Theme - Theme from 'in the Mood for Love'</TITLE>
+        <ARTIST>Shigeru Umebayashi</ARTIST>
+        <GENRE>Soundtrack</GENRE>
+        <YEAR>2013</YEAR>
+    </SONG>
+    <SONG>
+        <TITLE>愛人錯過</TITLE>
+        <ARTIST>告五人</ARTIST>
+        <GENRE>Taiwan Pop</GENRE>
+        <YEAR>2019</YEAR>
+    </SONG>
+    <SONG>
+        <TITLE>The Luckiest</TITLE>
+        <ARTIST>Ben Folds</ARTIST>
+        <GENRE>Pop Rock</GENRE>
+        <GENRE>Pop</GENRE>
+        <YEAR>2001</YEAR>
+    </SONG>
+    <SONG>
+        <TITLE>Love On Top</TITLE>
+        <ARTIST>Beyoncé</ARTIST>
+        <GENRE>Pop</GENRE>
+        <YEAR>2011</YEAR>
+    </SONG>   
+    <SONG>
+        <TITLE>Wedding Medley: Bridal Chorus / Wedding March</TITLE>
+        <ARTIST>Jim Brickman</ARTIST>
+        <GENRE>New Age</GENRE>
+        <YEAR>2017</YEAR>
+    </SONG>   
+    <SONG>
+        <TITLE>A Thousand Years</TITLE>
+        <ARTIST>Christina Perri</ARTIST>
+        <GENRE>Pop</GENRE>
+        <YEAR>2011</YEAR>
+    </SONG>    
+    
+</WEDDING-PAYLIST>
