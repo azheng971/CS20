@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content ="Joe's Hotdog Stand">
+    <meta name="viewport" content ="with=device-width, initial-scale = 1.0">
+    <title> Joe's Hotdog Stand </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+    <nav>
+        <img class="logo" src="./images/joe.png"
+            alt="Joe's Hotdog Stand Logo">
+    </nav>  
+    <!-- <div class="hero-box" style = "background: url('./images/hotdogs.jpg');"> -->
+        <img class="background" src="./images/hotdogs.jpg"
+            alt="Joe's Hotdog Stand hotdogs">
+        
+        <div class="main-title">
+            <h1>Online Order!</h1>
+        </div>
+    </div>
+</main>
+    <script language="javascript">
+        var hotdogNum, friesNum, sodaNum, hotdogPrice, 
+            friesPrice, sodaPrice, subtotal, discount, tax, total;
+     window.onload = function order()
+     {
+        hotdogNum = prompt("How many hotdogs would you like?", "");
+        friesNum = prompt("How many fries would you like?", "");
+        sodaNum = prompt("How many sodas would you like?", "");
+        
+        // //calculate the subtotal for individual items
+        hotdogPrice = parseFloat(hotdogNum) * 3.75;
+        hotdogPrice = hotdogPrice.toFixed(2);
+
+        friesPrice = parseFloat(friesNum) * 2;
+        friesPrice = friesPrice.toFixed(2);
+        
+        sodaPrice = parseFloat(sodaNum) * 1.8;
+        sodaPrice = sodaPrice.toFixed(2);
+
+        //calculate total before tax 
+        subtotal = parseFloat(hotdogPrice) + parseFloat(friesPrice) + 
+                   parseFloat(sodaPrice);
+        subtotal = subtotal.toFixed(2);
+        
+        if (subtotal >= 20) {
+            // apply discount if eligible 
+            discount = parseFloat(subtotal) * 0.1;
+            discoumt = discount.toFixed(2);
+            
+            // update subtotal
+            subtotal = subtotal - discount;
+            subtotal = subtotal.toFixed(2);
+            
+            // calculate tax
+            tax = 0.0625 * subtotal;
+            tax = tax.toFixed(2);
+            
+            // apply MA taxes
+            total = parseFloat(tax) + parseFloat(subtotal);
+            total = total.toFixed(2);
+
+        } else {
+            tax = 0.0625 * subtotal;
+            tax = tax.toFixed(2);
+            
+            total = parseFloat(tax) + parseFloat(subtotal);
+            total = total.toFixed(2);
+        }
+        document.write("Your Order Summary" + "<br>");
+        document.write("Call us at 617.888.2724 if you have any questions." + "<br>" + "<br>");
+        document.write("Hotdogs(" + hotdogNum + ")---------" + hotdogPrice + "<br>");
+        document.write("Fries(" + friesNum + ")-----------" + friesPrice+ "<br>");
+        document.write("Soda(" + sodaNum + ")------------" + sodaPrice+ "<br>");
+
+        if (discount > 0.00) {
+            document.write("Discount-----------" + discount + "<br>");
+        } else {
+            document.write("Discount-----------" + "0.00" + "<br>");
+        }
+        document.write("Subtotal----------" + subtotal+ "<br>");
+        document.write("Tax---------------" + tax + "<br>");
+        document.write("Total-------------" + total+ "<br>");
+    }
+    
+        
+    </script>
+</body>
+</html>
