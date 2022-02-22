@@ -6,6 +6,7 @@
     text-decoration: none;
 }
 
+
 nav {
     display: flex;
     flex-wrap: wrap;
@@ -43,10 +44,21 @@ h1 {
     align-items: left;
 }
 
+
 img.background {
-    max-width: 120%;
+    max-width: 102%;
     max-height: 100%;
-    display: flex;
+}
+
+@media screen and (max-width: 1075px) {
+    h1 {
+        font-size: 65px;
+    }
+    img.background {
+        max-width: 120%;
+        max-height: 100%;
+        display: flex;
+    }
 }
 
 @media screen and (max-width: 991px) {
