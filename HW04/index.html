@@ -9,24 +9,20 @@
 </head>
 
 <body>
-    <main>
-    <nav>
+     <nav>
         <img class="logo" src="./images/joe.png"
             alt="Joe's Hotdog Stand Logo">
     </nav>  
-    <!-- <div class="hero-box" style = "background: url('./images/hotdogs.jpg');"> -->
         <img class="background" src="./images/hotdogs.jpg"
             alt="Joe's Hotdog Stand hotdogs">
-        
         <div class="main-title">
             <h1>Online Order!</h1>
-        </div>
+        </div>    
     </div>
-</main>
     <script language="javascript">
         var hotdogNum, friesNum, sodaNum, hotdogPrice, 
             friesPrice, sodaPrice, subtotal, discount, tax, total;
-     window.onload = function order()
+     window.onload = function()
      {
         hotdogNum = prompt("How many hotdogs would you like?", "");
         friesNum = prompt("How many fries would you like?", "");
@@ -50,7 +46,7 @@
         if (subtotal >= 20) {
             // apply discount if eligible 
             discount = parseFloat(subtotal) * 0.1;
-            discoumt = discount.toFixed(2);
+            discount = discount.toFixed(2);
             
             // update subtotal
             subtotal = subtotal - discount;
@@ -65,29 +61,27 @@
             total = total.toFixed(2);
 
         } else {
+            discount = 0;
+            discount = discount.toFixed(2);
+            
             tax = 0.0625 * subtotal;
             tax = tax.toFixed(2);
             
             total = parseFloat(tax) + parseFloat(subtotal);
             total = total.toFixed(2);
         }
-        document.write("Your Order Summary" + "<br>");
-        document.write("Call us at 617.888.2724 if you have any questions." + "<br>" + "<br>");
-        document.write("Hotdogs(" + hotdogNum + ")---------" + hotdogPrice + "<br>");
-        document.write("Fries(" + friesNum + ")-----------" + friesPrice+ "<br>");
-        document.write("Soda(" + sodaNum + ")------------" + sodaPrice+ "<br>");
+        document.write("<h1><b>Your Order Summary</b></h1>");
+        document.write("Hotdogs(" + hotdogNum + ")--------- $" + hotdogPrice + "<br>");
+        document.write("Fries(" + friesNum + ")----------- $" + friesPrice + "<br>");
+        document.write("Soda(" + sodaNum + ")------------ $" + sodaPrice + "<br>");
+        document.write("Discount----------- $" + discount + "<br>");
+        document.write("Subtotal---------- $" + subtotal+ "<br>");
+        document.write("Tax--------------- $" + tax + "<br>");
+        document.write("Total------------- $" + total + "<br>" + "<br>");
+        document.write("Joe loves you! Your food will be on the way. ♡ " + "<br>");
+        document.write("<em>Call us at 617.888.2724 if you have any questions.</em>" + "<br>" + "<br>");
 
-        if (discount > 0.00) {
-            document.write("Discount-----------" + discount + "<br>");
-        } else {
-            document.write("Discount-----------" + "0.00" + "<br>");
-        }
-        document.write("Subtotal----------" + subtotal+ "<br>");
-        document.write("Tax---------------" + tax + "<br>");
-        document.write("Total-------------" + total+ "<br>");
     }
-    
-        
     </script>
 </body>
 </html>
