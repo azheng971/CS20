@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content ="Joe's Hotdog Stand">
+    <meta name="viewport" content ="with=device-width, initial-scale = 1.0">
+    <title> Lottery Sim </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Lucky for Life - The Game of a Lifetime</h1>
+    <div id = "results-box">
+        <p class="titles">My Pick</p>
+        <p id="UnsortedPick"></p>
+        <p class="titles">My Pick Sorted</p>
+        <p id="Pick"></p>
+        <p class="titles">Winning Numbers</p>
+        <p id="WinningNumbers"></p>
+        <p class="titles">Numbers Matching</p>
+        <p id="NumbersMatching"></p>
+        <p id="LuckyBallMatches"></p>
+        <h2 id="Winnings"></h2>
+    </div>
+    
+    <script language="javascript">    
+    function getRandomNumber(output, max) {
+        return Math.floor((Math.random() * (max - output))); 
+    }
+
+    function comparePicks(a, b) {
+      return a - b;
+    }
+
+    // generate a random array 
+    var tempArr = [];
+    for (var i = 1; i <= 48; i++) {
+        tempArr.push(i);
+    }
+    
+    // replace the picked number with a non-repeating number
+    var pick = [];
+    for (var i = 1; i <= 5; i++) {
+        num = getRandomNumber(i, 48);
+        pick.push(tempArr[num]);
+        tempArr[num] = tempArr[48 - i];
+    }    
+    //save a copy of pick
+    var unsortedPick = [].concat(pick);
+    
+    // sort the picked numbers
+    pick.sort(comparePicks);
+    
+    // check if the pick would have won teh lottery
+    var winningNum = [12, 15, 24, 35, 48];
+    var winningLucky = 3;
+    var numMatched = 0;
+    
+    for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 5; j++) {
+            if (pick[i] == winningNum[j]) {
+                numMatched++;
+            }
+        }
+    }
+    
+    var luckyBall = getRandomNumber(1, 18);
+
+    console.log(numMatched)
+        
+    // determine the payout
+    var winnings = 0;
+    if (luckyBall == winningLucky) {
+        if (numMatched == 5) {
+            winnings = 7000;
+        } else if (numMatched == 4) {
+            winnings = 5000;
+        } else if (numMatched == 3) {
+            winnings = 150;
+        } else if (numMatched == 2) {
+            winnings = 25;
+        } else if (numMatched == 1) {
+            winnings = 6;
+        } else if (numMatched == 0) {
+            winnings = 4;
+        }
+    } else {
+        if (numMatched == 5) {
+            winnings = 25000;
+        } else if (numMatched == 4) {
+            winnings = 200;
+        } else if (numMatched == 3) {
+            winnings = 20;
+        } else if (numMatched == 2) {
+            winnings = 3;
+        } else if (numMatched == 1) {
+            winnings = 0;
+        } else if (numMatched == 0) {
+            winnings = 0;
+        }
+    }
+
+        
+    // print results
+    document.getElementById("UnsortedPick").innerHTML = unsortedPick.join(" ") 
+        + " lucky " + luckyBall;
+    document.getElementById("Pick").innerHTML = pick.join(" ")
+        + " lucky " + luckyBall;
+    document.getElementById("WinningNumbers").innerHTML = winningNum.join(" ") + " lucky " + winningLucky;
+    document.getElementById("NumbersMatching").innerHTML = numMatched;
+    
+    if (luckyBall == winningLucky) {
+        document.getElementById("LuckyBallMatches").innerHTML 
+            = "Lucky ball matches!!!";
+        if (numMatched == 5) {
+            document.getElementById("Winnings").innerHTML = "Your winnings: $" + winnings +
+            " a WEEK for LIFE";
+        } else {
+            document.getElementById("Winnings").innerHTML = "Your winnings: $" + winnings;
+        }
+    } else {
+        document.getElementById("LuckyBallMatches").innerHTML
+            = "Lucky ball doesn't match.";
+        if (numMatched == 5) {
+            document.getElementById("Winnings").innerHTML = "Your winnings: $" + winnings +
+            " a YEAR for LIFE";
+        } else {
+            document.getElementById("Winnings").innerHTML = "Your winnings: $" + winnings;
+        }
+    }
+    </script>
+</body>
+</html>
