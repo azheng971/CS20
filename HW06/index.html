@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content ="Amicable Numbers">
+    <meta name="viewport" content ="with=device-width, initial-scale = 1.0">
+    <title> Amicable Numbers </title>
+    <style>
+        body {border: dotted #43BA81 10px;}
+        h2 {font-family: Trebuchet MS; color: #43BA81;}
+        p {font-family: Trebuchet MS; font-size: 16px; color: #3C3737;}
+        body {background: #ECFFF4; text-align: center; padding-top: 100px;}
+        input[type = button]
+            {cursor: pointer; background: #43BA81; 
+            font-family: Trebuchet MS; color: white; padding: 10px 50px; 
+            font-weight: bold; font-size: 15px; border-radius: 15px;}
+        #factorsDiv {word-wrap: break-word; padding-top: 0px; padding-left: 20px; padding-right: 20px}
+    </style>
+</head>
+
+<body>
+    <h2>Amicable Numbers ૮꒰ ˶• ༝ •˶꒱ა ♡</h2> 
+    <form id = "numbersForm" method = "post">
+        <h2> ♡ Number 1 ♡</h2>
+        <input id = "one">
+        <h2> ♡ Number 2 ♡</h2>
+        <input id = "two">
+        <br> <br> <br>
+        <input type="button" value="Submit"id="submit-btn"></button>
+    </form>
+    <div> 
+        <h2>Results</h2>
+        <p id="results"></p>
+    </div>
+    <div id="factorsDiv"> 
+        <h2>Factors</h2>
+        <p id="num1Factors"></p>
+        <p id="num2Factors"></p>
+    </div>
+
+    <script> 
+
+        window.onload = function() {
+            btn = document.getElementById("submit-btn");
+            btn.addEventListener("click", amicableNumbers);
+        }
+    
+        function amicableNumbers() {
+            // get user input and store them in variables to be passed around
+            var input1 = document.getElementById("one").value;
+            var input2 = document.getElementById("two").value;
+            var sum1, sum2;
+            var input1Factors = [], input2Factors = [];
+            // testing: console.log(input1); input1 is collected. 
+            // get sum of factors
+            sum1 = getSum(input1);
+            sum2 = getSum(input2);
+            // testing
+            // console.log("sum1:" + sum1);
+            // console.log("sum2:" + sum2);
+            // get factors and store them in arrays
+            input1Factors = getFactors(input1, input1Factors);
+            input2Factors = getFactors(input2, input2Factors);
+            // testing
+            // console.log("factors1:" + input1Factors);
+            // console.log("factors2:" + input2Factors);
+            if (sum1 == input2 && sum2 == input1) {
+                 document.getElementById("results").innerHTML = 
+                 "The numbers:  " + input1 + " and  " + input2 + " are amicable";
+            }
+            else {
+                 document.getElementById("results").innerHTML = 
+                 "The numbers:  " + input1 + " and  " + input2 + " are not amicable";
+            }
+            document.getElementById("num1Factors").innerHTML = 
+                input1 + " factors: " + input1Factors;
+            document.getElementById("num2Factors").innerHTML = 
+                input2 + " factors: " + input2Factors;
+        }
+        // determine if i is a factor of user input          
+        function isFactor(input, testValue) {
+            if (input % testValue == 0) {
+                return true;
+            }
+        }
+        // get sum of all factors of an input value
+        function getSum(inputValue) {
+            let sum = 0;
+            for (let i = 0; i < inputValue; i++) {
+                if (isFactor(inputValue, i) == true) {
+                    sum += i;
+                }
+            }
+            return sum;
+        }
+        // store all factors of an inpyt in an array
+        function getFactors(userInput, factorsArr) {
+            let counter = 0;
+            for (let i = 0; i < userInput; i++) {
+                if (isFactor(userInput, i) == true) {
+                    factorsArr[counter] = i;
+                    counter++;
+                }
+            }
+            return factorsArr;
+        }
+    </script>
+</body>
+</html>
