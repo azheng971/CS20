@@ -11,7 +11,7 @@
     {
         "title":"The Innocent", 
         "artist":"AURORA", 
-        "genre":"Art Pop",
+        "genre":["Art Pop"],
         "year":2022
     },
     {
@@ -26,19 +26,19 @@
     {
         "title":"A Thousand years", 
         "artist":"Christina Perri",
-        "genre":"Pop", 
+        "genre":["Pop"], 
         "year":2011 
     },
     {
         "title":"Yumeji's Theme - Theme from 'in the Mood for Love'", 
         "artist":"Shigeru Umebayashi", 
-        "genre":"Soundtrack", 
+        "genre":["Soundtrack"], 
         "year":2013 
     },
     {
         "title":"Ai Ren Cuo Guo", 
         "artist":"Gao Wu Ren", 
-        "genre":"Taiwan Pop", 
+        "genre":["Taiwan Pop"], 
         "year":2019 
     },
     {
@@ -53,19 +53,19 @@
     {
         "title":"Love On Top", 
         "artist":"Beyoncé", 
-        "genre":"Pop", 
+        "genre":["Pop"], 
         "year":2011 
     },  
     {
         "title":"Wedding Medley: Bridal Chorus / Wedding March", 
         "artist":"Jim Brickman", 
-        "genre":"New Age", 
+        "genre":["New Age"], 
         "year":2017 
     },  
     {
         "title":"A Thousand years", 
         "artist":"Christina Perri", 
-        "genre":"Pop", 
+        "genre":["Pop"], 
         "year":2011 
     }    
 ]
