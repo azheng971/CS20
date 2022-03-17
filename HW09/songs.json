@@ -1,0 +1,71 @@
+[
+    {
+        "title": "Exist For Love",  
+        "artist":"AURORA", 
+        "genre": [
+            "Art Pop",
+            "Norwegian Pop"
+        ],
+        "year":2022
+    },
+    {
+        "title":"The Innocent", 
+        "artist":"AURORA", 
+        "genre":"Art Pop",
+        "year":2022
+    },
+    {
+        "title":"But it's Destiny", 
+        "artist":"10cm",
+        "genre": [
+            "K-pop",
+            "Soundtrack",
+        ],
+        "year":2019 
+    },
+    {
+        "title":"A Thousand years", 
+        "artist":"Christina Perri",
+        "genre":"Pop", 
+        "year":2011 
+    },
+    {
+        "title":"Yumeji's Theme - Theme from 'in the Mood for Love'"", 
+        "artist":"Shigeru Umebayashi", 
+        "genre":"Soundtrack", 
+        "year":2013 
+    },
+    {
+        "title":"愛人錯過", 
+        "artist":"告五人", 
+        "genre":"Taiwan Pop", 
+        "year":2019 
+    },
+    {
+        "title":"The Luckiest", 
+        "artist":"Ben Folds", 
+        "genre": [
+            "Pop Rock",
+            "Pop"
+        ],
+        "year":2001 
+    },
+    {
+        "title":"Love On Top", 
+        "artist":"Beyoncé", 
+        "genre":"Pop", 
+        "year":2011 
+    },  
+    {
+        "title":"Wedding Medley: Bridal Chorus / Wedding March", 
+        "artist":"Jim Brickman", 
+        "genre":"New Age", 
+        "year":2017 
+    },  
+    {
+        "title":"A Thousand years", 
+        "artist":"Christina Perri", 
+        "genre":"Pop", 
+        "year":2011 
+    }    
+]
