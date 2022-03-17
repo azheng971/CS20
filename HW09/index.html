@@ -14,8 +14,8 @@
             margin-top: 20%;
         }
         #display{
-            color: white;
-            background: black;
+            color: black;
+            background: #FFF;
             font-family: Trebuchet MS; 
             border-radius: 30px;
             padding: 50px;
@@ -27,11 +27,11 @@
         #songsDisplay{
             color: white;
             font-family: Trebuchet MS; 
-            background: #FFF;
-            color: black;
+            background: black;
+            color: #FFF;
             border-radius: 30px;
             padding: 50px;
-            width: 60%;
+            width: 52%;
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
@@ -50,10 +50,13 @@
         body {
             background:  linear-gradient(89.64deg, #119BAE 19.88%, #C5FFAA 94.35%);
         }
+        p {
+            font-family: Trebuchet MS; 
+        }
         form {
             background: #FFF; 
             color: black; 
-            padding: 8%; 
+            padding: 5%; 
             margin: 0 8%; 
             width: 50%;
             height: 50%; 
@@ -76,7 +79,7 @@
             font-weight: 800px; 
             padding: 10px 35px; 
             border-radius: 20px;
-	    cursor: pointer;
+            cursor: pointer;
         }
         .logo {
             width: 25%;
@@ -100,40 +103,43 @@
     <div id = "selectGenre"> 
     <form>
     <label for "songForm">Select a Genre( ˘⌣˘)♡(˘⌣˘ ): </label>
+    <p> Scroll to the bottom to see the playlist </p>
     <select id = "songForm">
         <option value = "Art Pop">Art pop</option>
         <option value = "Norwegian Pop">Norwegian Pop</option>
         <option value = "K-pop">K-pop</option>
         <option value = "Pop">Pop</option>
-        <option value = "Taiwan Pop">Taiwan pop</option>
+        <option value = "Taiwan Pop">Taiwan Pop</option>
         <option value = "Soundtrack">Soundtrack</option>
         <option value = "Pop Rock">Pop Rock</option>
         <option value = "New Age">New Age</option>
     </select>
-    <input id = "btn1" type = "submit" value = "Filter"></input>
+    <input type = "button" id = "btn1" value = "Filter"></input>
     </form>
-    </div>
-    
-    <!-- Display the strings-->
-    <div id ="display">
     </div>
     
     <!-- Display the songs in a user-friendly manner -->
     <div id ="songsDisplay">
     </div>
+    <!-- Display the strings-->
+    <div id ="display">
+    </div>
     
     <script>
-        // serialize the songs
-        var strPlaylist = "";
+        var str = "";
+        var interfaceStr = "";
+        
         $.get("https://azheng971.github.io/CS20/HW09/songs.json", 
                 function(data) {
                     str = JSON.stringify(data);
                     strShow = str + "<br>";
                     
+                    // display serialized strings
                     document.getElementById("display").innerHTML = strShow;
 
                     interfaceStr = "<br><br>";
                     
+                    // display songs in a user-friendly manner
                     data.forEach(function(song) { 
                         interfaceStr += 
                         "Song: " + song.title + "<br>" + "Artist: " 
@@ -147,25 +153,23 @@
         
         // Filter the data after clicking the filter button
         var button = document.getElementById("btn1");
-        button.addEventListener("submit", function(){
-                var data = JSON.parse(str);
-                var select = document.getElementById("songForm");
-                var genre = select.value; 
-                interfaceStr = "<br><br>";
-				document.getElementById("songsDisplay").innerHTML += "<strong>" + genre + " song<br></strong>";
-				data.forEach(function(song) {
-                    for(let i = 0; i < song.genre.length; i++) {
-                        if(genre == song.genre[i]) {
-                            interfaceStr += "Song: " + song.title 
-                            + "<br>" + "Artist: " 
-                            + song.artist + "<br>" + "Genre: " 
-                            + song.genre 
-                            + "<br>" + "Released: " 
-                            + song.year +
-                            "<br><br>";
-			}
-                    }
+        button.addEventListener("click", function(){
+            songs = JSON.parse(str);
+            var genre = document.getElementById("songForm").value;
+            interfaceStr = "<br><br>";
+			document.getElementById("songsDisplay").innerHTML += "<strong>" + genre + " song<br></strong>";
+			songs.forEach(function(song) {
+                if (song.genre.includes(genre)) {
+                        interfaceStr += "Song: " + song.title 
+                        + "<br>" + "Artist: " 
+                        + song.artist + "<br>" + "Genre: " 
+                        + song.genre 
+                        + "<br>" + "Released: " 
+                        + song.year +
+                        "<br><br>";
+                }
             });
+            interfaceStr += "<br>";
             document.getElementById("songsDisplay").innerHTML = interfaceStr;
         });
     </script> 
