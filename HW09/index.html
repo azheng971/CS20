@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JSON Playlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" media="screen and (max-width:750px)" href="handheld.css"/>
+    <meta name="keywords" content="MagicRocket Band, Playlist">
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <!-- Internal Style Sheet -->
+    <style type="text/css">
+        #selectGenre
+        {
+            margin-top: 20%;
+        }
+        #header 
+        {
+            position: fixed; 
+            top: 0px; 
+            display: block; 
+            left: -5px;
+            width: 110%; 
+            background-color: #FAFAFA; 
+            height: 130px;
+            box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.1); 
+        }
+        body {
+            background:  linear-gradient(89.64deg, #119BAE 19.88%, #C5FFAA 94.35%);
+        }
+        form {
+            background: #FFF; 
+            color: black; 
+            padding: 8%; 
+            margin: 0 8%; 
+            width: 50%;
+            height: 50%; 
+            line-height: 2.5; 
+            font-size: 15px;
+            border-radius: 30px;
+        }   
+        label {
+            font-family: Trebuchet MS; 
+            font-size: 20px; 
+        } 
+        #btn1 {
+            width: auto; 
+            background: black; 
+            font-size: 16px; 
+            color: white;
+            float: right; 
+            font-weight: 800px; 
+            padding: 10px 35px; 
+            border-radius: 20px;
+        }
+        .logo {
+            width: 25%;
+            padding-left:30%;
+            display: flex;
+        }
+    </style>
+    <!-- End of Style Sheet -->
+</head>
+<body>
+    <!-- Head Section -->
+    <div id="header">
+            <div id=“name”>
+               <img class="logo" src="Logo.png"
+                   alt="Band Logo">
+               </a>
+           </div>
+    </div>
+    
+    <!-- Display the strings-->
+    <div id ="display">
+    </div>
+    
+    <!-- Display the songs in a user-friendly manner -->
+    <div id ="songsDisplay">
+    </div>
+    
+    <!-- A form with drop-down select -->
+    <div id = "selectGenre"> 
+    <form>
+    <label for "songForm">Select a Genre: </label>
+    <select id = "songForm">
+        <option value = "Art Pop">Art pop</option>
+        <option value = "Norwegian Pop">Norwegian Pop</option>
+        <option value = "K-pop">K-pop</option>
+        <option value = "Pop">Pop</option>
+        <option value = "Taiwan Pop">Taiwan pop</option>
+        <option value = "Soundtrack">Soundtrack</option>
+        <option value = "Pop Rock">Pop Rock</option>
+        <option value = "New Age">New Age</option>
+    </select>
+    <input id = "btn1" type = "submit" value = "Let's go!( ˘⌣˘)♡(˘⌣˘ )"></input>
+    </form>
+    </div>
+    
+    
+    <script>
+        //serialize the songs
+        var strPlaylist = "";
+        $.get("https://github.com/azheng971/CS20/HW09/songs.json", 
+                function(data)) {
+                    str = JSON.stringify(data);
+                    strShow = str + "<br>";
+                    
+                    document.getElementById("display").innerHTML = strShow;
+
+                    interfaceStr = "<br><br>";
+                    
+                    data.forEach(function(song) { 
+                        interfaceStr += 
+                        "Song: " + song.title + "<br>" + "Artist: " 
+                        + song.artist + "<br>" + "Genre: " 
+                        + song.genre + "<br>" 
+                        + "Released: " + song.year 
+                        + "<br>" + "<br>";
+                    })
+                    document.getElementById("songsDisplay").innerHTML = interfaceStr;
+        });
+    </script> 
+    
+
+</body>
+</html>
