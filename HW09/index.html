@@ -81,7 +81,7 @@
     <!-- A form with drop-down select -->
     <div id = "selectGenre"> 
     <form>
-    <label for "songForm">Select a Genre: </label>
+    <label for "songForm">( ˘⌣˘)♡(˘⌣˘ )Select a Genre: </label>
     <select id = "songForm">
         <option value = "Art Pop">Art pop</option>
         <option value = "Norwegian Pop">Norwegian Pop</option>
@@ -92,14 +92,13 @@
         <option value = "Pop Rock">Pop Rock</option>
         <option value = "New Age">New Age</option>
     </select>
-    <input id = "btn1" type = "submit" value = "Let's go!( ˘⌣˘)♡(˘⌣˘ )"></input>
-    </form>
+    <input id = "btn1" type = "submit" value = "Filter"></input>
     </div>
     
     
     <script>
         // serialize the songs
-        var strPlaylist = "";
+        var str = "";
         $.get("https://azheng971.github.io/CS20/HW09/songs.json", 
                 function(data)) {
                     str = JSON.stringify(data);
