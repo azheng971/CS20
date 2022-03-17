@@ -6,11 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" media="screen and (max-width:750px)" href="handheld.css"/>
     <meta name="keywords" content="MagicRocket Band, Playlist">
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>    <!-- Internal Style Sheet -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- Internal Style Sheet -->
     <style type="text/css">
         #selectGenre
         {
             margin-top: 20%;
+        }
+        #display{
+            color: white;
+            background: black;
+            font-family: Trebuchet MS; 
+            border-radius: 30px;
+            padding: 50px;
+            width: 60%;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #songsDisplay{
+            color: white;
+            font-family: Trebuchet MS; 
+            background: #FFF;
+            color: black;
+            border-radius: 30px;
+            padding: 50px;
+            width: 60%;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
         }
         #header 
         {
@@ -36,6 +60,8 @@
             line-height: 2.5; 
             font-size: 15px;
             border-radius: 30px;
+            margin-left: auto;
+            margin-right: auto;
         }   
         label {
             font-family: Trebuchet MS; 
@@ -69,18 +95,10 @@
            </div>
     </div>
     
-    <!-- Display the strings-->
-    <div id ="display">
-    </div>
-    
-    <!-- Display the songs in a user-friendly manner -->
-    <div id ="songsDisplay">
-    </div>
-    
     <!-- A form with drop-down select -->
     <div id = "selectGenre"> 
     <form>
-    <label for "songForm">( ˘⌣˘)♡(˘⌣˘ ) Select a Genre: </label>
+    <label for "songForm">Select a Genre( ˘⌣˘)♡(˘⌣˘ ): </label>
     <select id = "songForm">
         <option value = "Art Pop">Art pop</option>
         <option value = "Norwegian Pop">Norwegian Pop</option>
@@ -92,12 +110,20 @@
         <option value = "New Age">New Age</option>
     </select>
     <input id = "btn1" type = "submit" value = "Filter"></input>
+    </form>
     </div>
     
+    <!-- Display the strings-->
+    <div id ="display">
+    </div>
+    
+    <!-- Display the songs in a user-friendly manner -->
+    <div id ="songsDisplay">
+    </div>
     
     <script>
         // serialize the songs
-        var str = "";
+        var strPlaylist = "";
         $.get("https://azheng971.github.io/CS20/HW09/songs.json", 
                 function(data) {
                     str = JSON.stringify(data);
@@ -118,28 +144,21 @@
                     document.getElementById("songsDisplay").innerHTML = interfaceStr;
         });
         
-        // Filter the data 
-        function select() {
-            var data = JSON.parse(str);
-            var select = document.getElementById("songForm");
-            var genre = select.value; 
-
-            interfaceStr = "<br><br>";
-
-            data.forEach(function(song) { 
-               // iterate through the list and check if genre matches
-               for(let i = 0; i < song.genre.length; i++) {
-                   if(genre == songs.genre[i]) {
-                       strHTML += "♡" + 
-                       song.title + 
-                       "Artist: " + song.artist + 
-                       "Genre: " + song.genre + "<br>" 
-                       + "Released: " + song.released + "<br>" + "<br>";
-                   }
-               }
-            })
-            document.getElementById("songsDisplay").innerHTML = interfaceStr;
-        }
+        // Filter the data after clicking the filter button
+        var button = document.getElementById("btn1");
+        button.addEventListener("submit", function(event){
+                var data = JSON.parse(str);
+                var select = document.getElementById("songForm");
+                var genre = select.value; 
+				document.getElementById("songsDisplay").innerHTML += "<strong>" + genre + " song<br></strong>";
+				data.forEach(function (song) {
+                    for(let i = 0; i < song.genre.length; i++) {
+                        if(genre == song.genre[i]) {
+                            document.getElementById("songsDisplay").innerHTML += "Song: " + song.title + "<br>Genre: " + song.genre + "<br>Released: " + song.release + "<br>Artist: " + song.artist + "<br><br>";
+					    }
+                    }
+				});
+        });
     </script> 
 </body>
 </html>
