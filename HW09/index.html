@@ -79,7 +79,7 @@
         }
         .logo {
             width: 25%;
-            padding-left:30%;
+            padding-left: 33%;
             display: flex;
         }
     </style>
@@ -146,18 +146,26 @@
         
         // Filter the data after clicking the filter button
         var button = document.getElementById("btn1");
-        button.addEventListener("submit", function(event){
+        button.addEventListener("submit", function(){
                 var data = JSON.parse(str);
                 var select = document.getElementById("songForm");
                 var genre = select.value; 
+                interfaceStr = "<br><br>";
 				document.getElementById("songsDisplay").innerHTML += "<strong>" + genre + " song<br></strong>";
-				data.forEach(function (song) {
+				data.forEach(function(song) {
                     for(let i = 0; i < song.genre.length; i++) {
                         if(genre == song.genre[i]) {
-                            document.getElementById("songsDisplay").innerHTML += "Song: " + song.title + "<br>Genre: " + song.genre + "<br>Released: " + song.release + "<br>Artist: " + song.artist + "<br><br>";
-					    }
+                            interfaceStr += "Song: " + song.title 
+                            + "<br>" + "Artist: " 
+                            + song.artist + "<br>" + "Genre: " 
+                            + song.genre 
+                            + "<br>" + "Released: " 
+                            + song.year +
+                            "<br><br>";
+			}
                     }
-				});
+            });
+            document.getElementById("songsDisplay").innerHTML = interfaceStr;
         });
     </script> 
 </body>
