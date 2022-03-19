@@ -7,15 +7,15 @@ body {
 }
 
 #display {
-    border-radius: 15px;
+    border-radius: 4px;
     background: #FFCDFA;
     color: #2B2B2B;
     border: 6px double white;
     padding: 50px 80px;
-    margin: 40px 220px;
-    text-align: left;
-    font-size: 18px;
-    line-height: 150%;
+    margin: 40px 300px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 160%;
     font-weight: 600;
 }
 
@@ -24,7 +24,7 @@ body {
 }
 
 #zenCat {
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 h1 {
@@ -47,9 +47,31 @@ h4 {
     font-size: 18px;
 }
 
-@media screen and (max-width: 767px) {
+#author {
+    font-weight: normal;
+    margin-top: 5px;
+}
+@media screen and (max-width: 967px) {
     #display {
         margin: 20px 50px;
+    }
+    h4 {
+        font-size: 15px;
+    }
+    .info {
+        text-align: left;
+        margin: 50px 50px;
+    }
+}
+@media screen and (max-width: 767px) {
+    #display {
+        margin: 0px;
+    }
+    #quote {
+        font-size: 18px;
+    }
+    h1 {
+        font-size: 22px;
     }
     h4 {
         font-size: 15px;
