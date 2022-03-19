@@ -22,44 +22,41 @@
                     //check if response was successfully received
                 	if (request.readyState == 4 && request.status == 200) {
                 		//get string
-                        var data = request.responseText;
+                        result = request.responseText;
                         //parse back into object
-                		var info = JSON.parse(data);
-                        document.getElementById("quote").innerHTML = info.body;
+                		data = JSON.parse(result);
+                        document.getElementById("quote").innerHTML = data.body;
                         document.getElementById("author").innerHTML = "- " + data.author;
                 	} // unable to retrieve data
                     else if (request.readyState == 4 && request.status != 200) {
-                		document.getElementById("display").innerHTML = "Sorry! Cat is feeling lazy. Unable to retrieve data. Ask your mom for advice.";
+                		document.getElementById("quote").innerHTML = "Sorry! Cat is feeling lazy. Unable to retrieve data. Ask your mom for advice.";
                 	}	
                 	// not ready 
                 	else if (request.readyState == 3) {
-                		document.getElementById("display").innerHTML = "Cat is still thinking. It needs a moment.";
+                		document.getElementById("quote").innerHTML = "Cat is still thinking. It needs a moment.";
                 	}
-                    // step 4: fire off the HTTP Request
-                    request.send();
-                        console.log("Step4: send request");
             }
+            // step 4: fire off the HTTP Request
+            request.send();
+                console.log("Step4: send request");
 	     }
          
          // fetch
+         res = fetch("https://stoicquotesapi.com/v1/api/quotes/random")
+    		.then (res => res.text())
+    		.then (data => 
+            {
+                data = JSON.parse(data);
+                document.getElementById("quote").innerHTML = data.body;
+                document.getElementById("author").innerHTML = "- " + data.author;
+                console.log(data)
+            })
          
-         // res = fetch("https://stoicquotesapi.com/v1/api/quotes/random")
-    		// .then (res => res.text())
-    		// .then (data => 
-         //    {
-         //        data = JSON.parse(data);
-         //        document.getElementById("quote").innerHTML = data.body;
-         //        document.getElementById("author").innerHTML = "- " + data.author;
-         //        console.log(data)
-         //    })
-         // 
-    		// .catch (error => console.log(error))
-	
-     
+    		.catch (error => console.log(error))
     </script>
 </head>
 
-<body>
+<body onload = "getQuote()">
     <div id = "zenCat">
         <img class="cat"  src="cat.png" alt="cute cartoon cat">
         <h1> Cat Knows Best </h1>
