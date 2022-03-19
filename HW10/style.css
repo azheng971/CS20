@@ -1,0 +1,61 @@
+
+body {
+    background: #017F7E;
+    color: white;
+    font-family: Verdana;
+    text-align: center;
+}
+
+#display {
+    border-radius: 15px;
+    background: #FFCDFA;
+    color: #2B2B2B;
+    border: 6px double white;
+    padding: 50px 80px;
+    margin: 40px 220px;
+    text-align: left;
+    font-size: 18px;
+    line-height: 150%;
+    font-weight: 600;
+}
+
+.cat {
+    max-width: 18%;
+}
+
+#zenCat {
+    margin-top: 5%;
+}
+
+h1 {
+    font-size: 40px;
+    line-height: 70%;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+.info {
+    text-align: left;
+    margin: 50px 220px;
+}
+
+.info a {
+    color: #FFCDFA;
+    font-family: Verdana;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 767px) {
+    #display {
+        margin: 20px 50px;
+    }
+    h4 {
+        font-size: 15px;
+    }
+    .info {
+        text-align: left;
+        margin: 50px 50px;
+    }
+}
