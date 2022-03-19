@@ -7,39 +7,55 @@
     <link rel="stylesheet" href="style.css">
     
     <script>
-        function requestData() {
+        function getQuote() {
             // 1. make instance of request object 
-		      var reqObj = new XMLHttpRequest();
+		      request = new XMLHttpRequest();
               console.log("Step1: request object");
               
               // 2. Open the request file -- set the AJAX request to be the JSON file
-        	  reqObj.open("GET", "https://zenquotes.io/api/[mode]/[key]?option1=value&option2=value", true)
-              console.log("Step2: request file opened");
+        	  request.open("GET", "https://stoicquotesapi.com/v1/api/quotes/random", true);
+              console.log("Step2: requestuest file opened");
 
                //3. event set up 
-               reqObj.onreadystatechange = function() {
+              request.onreadystatechange = function() {
                     console.log("Step3: event handler is set up");
                     //check if response was successfully received
-                	if (reqObj.readyState == 4 && reqObj.status == 200) {
+                	if (request.readyState == 4 && request.status == 200) {
                 		//get string
-                        var data = reqObj.responseText;
+                        var data = request.responseText;
                         //parse back into object
                 		var info = JSON.parse(data);
-                        document.getElementById("display").innerHTML = info;
+                        document.getElementById("quote").innerHTML = info.body;
+                        document.getElementById("author").innerHTML = "- " + data.author;
                 	} // unable to retrieve data
-                    else if (reqObj.readyState == 4 && reqObj.status != 200) {
+                    else if (request.readyState == 4 && request.status != 200) {
                 		document.getElementById("display").innerHTML = "Sorry! Cat is feeling lazy. Unable to retrieve data. Ask your mom for advice.";
                 	}	
                 	// not ready 
-                	else if (reqObj.readyState == 3) {
+                	else if (request.readyState == 3) {
                 		document.getElementById("display").innerHTML = "Cat is still thinking. It needs a moment.";
                 	}
-                    
                     // step 4: fire off the HTTP Request
-                    reqObj.send();
+                    request.send();
                         console.log("Step4: send request");
-                }
+            }
 	     }
+         
+         // fetch
+         
+         // res = fetch("https://stoicquotesapi.com/v1/api/quotes/random")
+    		// .then (res => res.text())
+    		// .then (data => 
+         //    {
+         //        data = JSON.parse(data);
+         //        document.getElementById("quote").innerHTML = data.body;
+         //        document.getElementById("author").innerHTML = "- " + data.author;
+         //        console.log(data)
+         //    })
+         // 
+    		// .catch (error => console.log(error))
+	
+     
     </script>
 </head>
 
@@ -47,25 +63,32 @@
     <div id = "zenCat">
         <img class="cat"  src="cat.png" alt="cute cartoon cat">
         <h1> Cat Knows Best </h1>
-        <h4> Hello! I’m Zen Cat. I give you better advice than your mom. </h4>
+        <h4> Hello! I’m Cat. I talk to ghosts. I give you better advice than your mom. </h4>
     </div>
     <div id = "display">
-        Loading up the wisdom...
+        <div id = "quote">
+        Asking a ghost now...
+        </div>
+        <div id = "author">
+        </div>
     </div>
     
     <div class = "info">
         <h2> About this API </h2>
-        <p> Zenquotes.io is a simple API that can be used to fetch quotes from infuential figures throughout history into JSON format.</p>
+        <p> Stoic Quotes API is a simple API that can be used to fetch quotes from infuential stoic figures throughout history into JSON format.</p>
         <h2> Source </h2>
-            <a href= https://zenquotes.io/> API </a><br>
-            <a href= https://zenquotes.io/> zenquotes.io </a>
+            <a href= https://stoicquotesapi.com/> The Site </a><br>
+            <a href= https://stoicquotesapi.com/v1/api/quotes/random> The API </a>
         <h2> Options </h2>
-            <p> </p>    
+            <p>The first method I used was an AJAX data pattern to read a JSON file.
+                I initialized the page by setting up event handlers and create an HttpRequest object. I used "GET" to retrieve the data
+                I form the URL of the request and opened it, set up onreadystatechange event to process asynchronous info. 
+                <br> The second method I used was "fetch" - it consolidates many elements in XMLHttpRequest.
+            </p>
         <h2> Applications </h2>
             <p> (1) This API can be used as a chat bot in channels like Slack or Discord to motivate users in random times o fthe day.
                 (2) It can also be used in a diary web app where motivational quotes show up in the home page.
             </p>
     </div>
-    
 </body>
 </html>
