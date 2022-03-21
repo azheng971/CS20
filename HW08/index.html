@@ -1,1 +1,279 @@
-jade delight
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Jade Delight</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<script>
+        // event handler
+        window.onload = function() {
+            // to prevent the page from hiding delivery address when refreshed and delivery is selected
+            var windowOpenedDelivery = $('input[name="p_or_d"]:checked').val();
+            if (windowOpenedDelivery == "pickup") {
+                hideAddress();
+            }
+            // check if street and city are filled if Delivery
+            $('input[type=radio][name=p_or_d]').change(function(){
+                // only display address fields if user selects delivery
+                if (this.value == "pickup") {
+                    hideAddress();
+                } else {
+                    showAddress();
+                }
+            });
+            // part 1: when a user selects a quantity, quantity is automatically updated 
+            $('select').each(function(i){
+                $(this).change(function(){
+                    var quantity = parseFloat($("option:selected", this).text());   
+                    // find individual item's cost and change it          
+                    var item_cost = menuItems[i].cost * quantity;
+                    document.getElementsByName("cost")[i].value = parseFloat(item_cost).toFixed(2);
+                    // loop through items and add all individual items cost to calculate the subtotal
+                    var tempSubtotal = Number(0);
+                    for (j = 0; j < menuItems.length; j++){
+                        var updatingSubtotal = Number(document.getElementsByName("cost")[j].value);
+                        tempSubtotal += updatingSubtotal;
+                    }
+                    // calculate subotal 
+                    document.getElementById("subtotal").value = tempSubtotal.toFixed(2);
+                    var subtotal = document.getElementById("subtotal").value;
+                    console.log("subtotal: " + subtotal);//testing
+                    // calculate tax
+                    document.getElementById("tax").value = (.0625 * parseFloat(subtotal)).toFixed(2);
+                    var tax = document.getElementById("tax").value;
+                    // calculate total
+                    var totalParsed = parseFloat(subtotal) + parseFloat(tax);
+                    document.getElementById("total").value = totalParsed.toFixed(2);
+                });
+            });   
+            //part 2: validate form
+            $('input:button[value="Submit Order"]').click(function() {
+                validate_form();    
+            });  
+        }
+        
+        // ==========start of starter code==========
+        function MenuItem(name, cost)
+        {
+        	this.name = name;
+        	this.cost=cost;
+        }
+
+        menuItems = new Array(
+        	new MenuItem("Chicken Chop Suey", 4.5),
+        	new MenuItem("Sweet and Sour Pork", 6.25),
+        	new MenuItem("Shrimp Lo Mein", 6.25),
+        	new MenuItem("Moo Shi Chicken", 7.5),
+        	new MenuItem("Fried Rice", 2.85)
+        );
+
+        function makeSelect(name, minRange, maxRange)
+        {
+        	var t= "";
+        	t = "<select name='" + name + "' size='1'>";
+        	for (j=minRange; j<=maxRange; j++)
+        	   t += "<option>" + j + "</option>";
+        	t+= "</select>"; 
+        	return t;
+        }
+
+        function td(content, className="")
+        {
+        	return "<td class = '" + className + "'>" + content + "</td>";
+        }
+        // ==========end of starter code============
+        
+        // Part 2: Form validation main function
+        function validate_form(){
+            var isValid = true;
+            // validate last Name
+            var nameCheck = validateLName();
+            // validate Phone
+            var phoneCheck = validatePhone();
+            // check if street and city are filled if Delivery
+            var getFoodMethod = document.forms[0].p_or_d.value; 
+            if (getFoodMethod == "delivery") {
+                var deliveryCheck = validateDelivery();
+            }
+            // check if at least 1 item was selected
+            var orderPass = validateMinOrder();
+            console.log("ordered at least one item: " + orderPass); //testing
+            if (nameCheck == false || phoneCheck == false || deliveryCheck == false
+                || orderPass == false) {
+                isValid = false;
+            }
+            // show order summary if no error occured
+            if (isValid == true) {
+                orderSummary();
+            }
+        }
+        
+        //verify that the last name and phone are entered
+        function validateLName() {
+            var lName = document.forms[0].lname.value;
+            // check if a last name is inputted
+            if (lName == "") {
+                alert("Please enter your last name.");
+                return false;
+            }
+        }
+        
+        function validatePhone() {
+            var phoneNum = document.forms[0].phone.value;
+            //strip non-numeric characters with regex of \D, which is a shorthand character class that matches all non-digits
+            phoneNum = phoneNum.replace(/\D/g,'')
+            //check for 7 or 10 digits
+            if (phoneNum.length != 7 && phoneNum.length != 10) {
+                console.log("phone num:" + phoneNum); // testing
+                alert("We need your real digits, por favor.");
+                return false;
+            } else {
+                console.log("true"); // testing
+            }
+        }
+        
+        function validateDelivery() {
+            var user_address = document.forms[0].street.value;
+            var user_city = document.forms[0].city.value;
+            if (user_address == "") {
+                alert("You need to enter your address if you want food.");
+                return false;
+            }
+            if (user_city == "") {
+                alert("City is required.");
+                return false;
+            }
+        }
+        
+        function hideAddress() {
+            var users_address1 = document.getElementsByClassName("userInfo address")[0];
+            users_address1.style.display = "none";
+            var users_address2 = document.getElementsByClassName("userInfo address")[1];
+            users_address2.style.display = "none";
+        }
+        
+        function showAddress() {
+            var users_address1 = document.getElementsByClassName("userInfo address")[0];
+            users_address1.style.display = "block";
+            var users_address2 = document.getElementsByClassName("userInfo address")[1];
+            users_address2.style.display = "block";
+        }
+        
+        // determine estimated order ready time based on methods
+        // if pickup, 15m from order time. if delivery, 30m from order time.  
+        function waitTime(methodOfDelivery) {
+            var today = new Date();
+            var now = today.getTime(); // number of milliseconds from 1/1 1970
+            console.log(today); // testing
+            console.log(now); // testing
+            
+            if(methodOfDelivery == "delivery") {
+                now += 1800000; //add 30 minutes
+            } else {
+                now += 900000;  //add 15 minutes
+            }
+            var wait_time = new Date(now); // convert back to date form
+            console.log("wait time: " + wait_time); // testing
+            // convert to a user friendly display
+            var wait_time_user_friendly = wait_time.getHours() + ":" + wait_time.getMinutes();
+            
+            if (wait_time.getMinutes() < 10) {
+                wait_time_user_friendly = wait_time.getHours() + ":0" + wait_time.getMinutes();
+            }
+            console.log("your order is ready at: " + wait_time_user_friendly); // testing
+            return wait_time_user_friendly; 
+        }
+            
+        // check if the user at least ordered one item
+        function validateMinOrder() {
+            if (document.forms[0].total.value == 0) {
+                alert("Order cannot be processed because nothing was selected.");
+                return false;
+            }
+        }
+        
+        // Part 3: display order summary
+        function orderSummary() {
+            alert("Thank you for choosing Jade Delight. Have a delightful day!");
+            // create a new window object wth order details and estimated wait time
+            var jadeReceipt = window.open();
+            jadeReceipt.document.write("<p>We have received your order.☆ ～('▽^人)</p>")
+            
+            // display estimated wait time based on delivery method 
+            var deliveryMethod = document.forms[0].p_or_d.value;
+            jadeReceipt.document.write("<p><EM>Your order will be ready at: " + waitTime(deliveryMethod) +"</EM></p><br>");
+            
+            // display the summary of all items ordered
+            var summary = "<h3>(♡˙︶˙♡)Order Summary</h3><br>";
+            for (i = 0; i < menuItems.length; i++) {
+        		if ($("select[name = quan" + i +"]")[0].selectedIndex > 0)
+        			summary = summary +  menuItems[i].name + "(" +
+                        $("select[name = quan" + i +"]")[0].selectedIndex + ")" 
+                        + ": $" + menuItems[i].cost + "<br>"; 
+            }
+            jadeReceipt.document.write(summary);
+            
+            //what the user needs to payment
+            jadeReceipt.document.write("<p>Subtotal: $" + document.forms[0].subtotal.value + "</p>");
+            jadeReceipt.document.write("<p>Tax: $" + document.forms[0].tax.value + "</p>");
+            jadeReceipt.document.write("<h3><b>Total: $" + document.forms[0].total.value + "</b></h3>");
+            jadeReceipt.document.close();
+        }
+        </script>
+        
+        <div class="header">
+            <div class="logo-text"><h1>Jade Delight</h1></div>
+        </div>
+        <img class="hero-img"  src="jade.png" alt="Jade Delight Picture">
+
+        <form>
+
+        <p class="userInfo"><label>First Name:</label> <input type="text"  name='fname' /></p>
+        <p class="userInfo"><label>Last Name*</label>:  <input type="text"  name='lname' /></p>
+        <p class="userInfo address"><label>Street*</label>: <input type="text" name='street' /></p>
+        <p class="userInfo address"><label>City*</label>: <input type="text" name='city' /></p>
+        <p class="userInfo"><label>Phone*</label>: <input type="text"  name='phone' /></p>
+        <p> 
+        	<input type="radio"  name="p_or_d" value = "pickup" checked="checked"/>Pickup  
+        	<input type="radio"  name='p_or_d' value = 'delivery'/>
+        	Delivery
+        </p>
+        <table border="0" cellpadding="3">
+          <tr>
+            <th>Select Item</th>
+            <th>Item Name</th>
+            <th>Cost Each</th>
+            <th>Total Cost</th>
+          </tr>
+          <script>
+          var s = "";
+          for (i=0; i< menuItems.length; i++)
+          {
+        	  s += "<tr>";
+        	  s += td(makeSelect("quan" + i, 0, 10),"selectQuantity");
+        	  s += td(menuItems[i].name, "itemName");
+        	  s += td("$" + menuItems[i].cost.toFixed(2), "cost");
+        	  s += td("$<input type='text' name='cost'/>", "totalCost");
+        	  s+= "</tr>";
+          }
+          document.writeln(s);
+      	</script>
+</table>
+        <p class="subtotal totalSection"><label>Subtotal</label>: 
+           $ <input type="text"  name='subtotal' id="subtotal" />
+        </p>
+        <p class="tax totalSection"><label>Mass tax 6.25%:</label>
+          $ <input type="text"  name='tax' id="tax" />
+        </p>
+        <p class="total-totalSection"><label>Total:</label> $ <input type="text"  name='total' id="total" />
+        </p>
+
+        <input type = "button" value = "Submit Order"/>
+
+        </form>
+</body>
+</html>
